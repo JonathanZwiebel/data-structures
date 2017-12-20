@@ -1,11 +1,10 @@
 """
 Author: Jonathan Zwiebel
-Version: 14 December 2017
+Version: 20 December 2017
 
 An implementation of a linked list using a series of structs that point to eachother
 Contains references to the front, back, and size of the list
 Supports add(data), remove(data), contains(data), traverse()
-TODO: get(index), insert(data, index), join(other_list)
 """
 
 class linked_list_node:
