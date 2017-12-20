@@ -85,6 +85,87 @@ class linked_list:
 			curr = curr.next_node
 		return False
 
+
+	# Gets the element at the specified index
+	# O(N)
+	def get(self, index):
+		if index >= self.size:
+			raise ValueError("List index out of bounds")
+		n = 0
+		curr = self.front
+		while n < index:
+			curr = curr.next_node
+			n += 1 
+		return curr.data
+
+	# Inserts an element at the specified index
+	# O(N)
+	def insert(self, index, data):
+		if index > self.size:
+			raise ValueError("List index out of bounds")
+
+		new_node = linked_list_node(data)
+		self.size += 1
+
+		if self.size == 1:
+			self.front = new_node
+			self.back = new_node
+
+		elif index == 0:
+			new_node.next_node = self.front
+			self.front = new_node
+
+		elif index == self.size - 1:
+			self.back.next_node = new_node
+			self.back = new_node
+
+		else:
+			n = 0
+			curr = self.front
+			while n < index - 1:
+				curr = curr.next_node
+				n += 1
+			temp = curr.next_node
+			curr.next_node = new_node
+			new_node.next_node = temp
+
+	# Removes the element at the given index
+	# O(N)
+	def remove_index(self, index):
+		if index >= self.size:
+			raise ValueError("List index out of bounds")
+
+		self.size -= 1
+		
+		if self.size == 0:
+			self.back = None
+
+		if index == 0:
+			self.front = self.front.next_node
+
+		else:
+			n = 0
+			curr = self.front
+			while n < index - 1:
+				curr = curr.next_node
+				n += 1
+			if curr.next_node == self.back:
+				curr.next_node = None
+				self.back = curr
+			else:
+				curr.next_node = curr.next_node.next_node
+
+
+	def join(self, other):
+		if self.size == 0:
+			self.front = other.front
+			self.back = other.back
+			self.size = other.size
+		elif other.size != 0:
+			self.back.next_node = other.front
+			self.back = other.back
+			self.size += other.size
+
 	# Traverses the linked_list and returns a list of its values
 	# O(N)
 	def traverse(self):
